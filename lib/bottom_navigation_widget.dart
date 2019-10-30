@@ -14,8 +14,60 @@ class BottomNavigationWidget extends StatefulWidget {
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   final _bottomNavigationColor = Colors.blue;
 
+  var tabImages;
+  var appBarTitles = ['Wallet', 'Transaction', 'Budget', 'More'];
+
   int _currentIndex = 0;
   List<Widget> list = List();
+
+  /*
+   * 根据选择获得对应的normal或是press的icon
+   */
+  Image getTabIcon(int curIndex) {
+    if (curIndex == _currentIndex) {
+      return tabImages[curIndex][1];
+    }
+    return tabImages[curIndex][0];
+  }
+
+  Image getTabImage(path) {
+    return new Image.asset(path, width: 24.0, height: 24.0);
+  }
+
+  /*
+   * 获取bottomTab的颜色和文字
+   */
+  Text getTabTitle(int curIndex) {
+    if (curIndex == _currentIndex) {
+      return new Text(appBarTitles[curIndex],
+          style: new TextStyle(fontSize: 14.0, color: const Color(0xff1296db)));
+    } else {
+      return new Text(appBarTitles[curIndex],
+          style: new TextStyle(fontSize: 14.0, color: const Color(0xff515151)));
+    }
+  }
+
+  void initData() {
+    tabImages = [
+      [
+        getTabImage('assets/tab_icon/tab_icon_budgets_d.png'),
+        getTabImage('assets/tab_icon/tab_icon_budgets_s.png')
+      ],
+      [
+        getTabImage('assets/tab_icon/tab_icon_more_d.png'),
+        getTabImage('assets/tab_icon/tab_icon_more_s.png')
+      ],
+      [
+        getTabImage('assets/tab_icon/tab_icon_transactions_d.png'),
+        getTabImage('assets/tab_icon/tab_icon_transactions_s.png')
+      ],
+      [
+        getTabImage('assets/tab_icon/tab_icon_wallet_d.png'),
+        getTabImage('assets/tab_icon/tab_icon_wallet_s.png')
+      ]
+    ];
+  }
+
   @override
   void initState() {
     list..add(Wallet())..add(Transaction())..add(Budget())..add(More());
@@ -24,29 +76,19 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    initData();
     return Scaffold(
       body: list[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance_wallet,
-                  color: _bottomNavigationColor),
-              title: Text(
-                'Wallet',
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box, color: _bottomNavigationColor),
-              title: Text(
-                'Transaction',
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance, color: _bottomNavigationColor),
-              title: Text('Budget')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.more, color: _bottomNavigationColor),
-              title: Text(
-                'More',
-              ))
+          new BottomNavigationBarItem(
+              icon: getTabIcon(0), title: getTabTitle(0)),
+          new BottomNavigationBarItem(
+              icon: getTabIcon(1), title: getTabTitle(1)),
+          new BottomNavigationBarItem(
+              icon: getTabIcon(2), title: getTabTitle(2)),
+          new BottomNavigationBarItem(
+              icon: getTabIcon(3), title: getTabTitle(3)),
         ],
         currentIndex: _currentIndex,
         onTap: (int index) {

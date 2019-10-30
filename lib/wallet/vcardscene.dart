@@ -11,7 +11,7 @@ class VirtualCardList extends StatelessWidget {
     return new List<Widget>.generate(
         12,
         (i) => Positioned(
-              top: 120.0 * i ,
+              top: 120.0 * i,
               left: 0.0,
               right: 0.0,
               child: _renderCard(),
