@@ -19,7 +19,7 @@ class Wallet extends StatelessWidget {
       color: Colors.white,
       child: new TabBar(
         isScrollable: true,
-        labelPadding: EdgeInsets.only(right: 16),
+        // labelPadding: EdgeInsets.only(right: 16),
         indicator: YLStatisticsIndictor(),
         tabs: _allPages
             .map((HeaderItemBean page) => new Tab(
@@ -80,7 +80,8 @@ class Wallet extends StatelessWidget {
           body: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(left: 16),
+                color: Colors.white,
+                // padding: EdgeInsets.only(left: 16),
                 child: _renderTabs(),
                 height: 30,
                 width: MediaQuery.of(context).size.width,
@@ -110,6 +111,6 @@ class _YLIndictorPainter extends BoxPainter {
     final w = 24.0;
     final h = 2.5;
     canvas.drawRect(
-        Rect.fromLTWH(offset.dx, configuration.size.height - h, w, h), paint);
+        Rect.fromLTWH(offset.dx + 16, configuration.size.height - h, w, h), paint);
   }
 }
