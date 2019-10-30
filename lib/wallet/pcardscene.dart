@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
+import 'package:macvon_flutter/transaction/transactionlist.dart';
 import 'package:macvon_flutter/wallet/mock_data.dart';
+
 
 class HeaderTitle extends StatelessWidget {
   @override
@@ -47,8 +50,8 @@ class CardInfoItem extends StatelessWidget {
             child: Text(this.cardInfoModel.title,
                 style: TextStyle(
                     color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12)),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14)),
           ),
           Expanded(
               child: Text(this.cardInfoModel.value,
@@ -70,6 +73,8 @@ Widget _renderCardInfo() {
     new CardInfoModel('Card Holder', 'xing zhang'),
     new CardInfoModel(
         'Address', '101 Morgon lane Sutie 302 Planinsbort,NJ 08536'),
+    new CardInfoModel('Exp.Date', '··/··'),
+    new CardInfoModel('CVV', '···'),
     new CardInfoModel('Exp.Date', '··/··'),
     new CardInfoModel('CVV', '···'),
   ];
@@ -119,9 +124,11 @@ class PhysicalCardScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new ListView(
+      shrinkWrap: true,
       children: <Widget>[
         new CreditCard(data: creditCardData),
         new CardInfo(),
+        new TransactionList()
       ],
     );
   }
