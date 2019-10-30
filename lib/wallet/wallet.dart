@@ -43,7 +43,7 @@ class Wallet extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          child: Text('Wallet'),
+          child: Text('Wallet',style: TextStyle(color: Colors.blue),),
         ),
       ],
     );
@@ -56,6 +56,7 @@ class Wallet extends StatelessWidget {
         child: new Scaffold(
           appBar: new AppBar(
             backgroundColor: Colors.white,
+            elevation: 0,
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
