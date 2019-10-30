@@ -14,8 +14,10 @@ class HeaderTitle extends StatelessWidget {
             width: 4,
             height: 13,
           ),
-          Text('CARD INFORMATION',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          Expanded(
+            child: Text('CARD INFORMATION',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
         ],
       ),
     );
@@ -44,15 +46,18 @@ class CardInfoItem extends StatelessWidget {
             margin: EdgeInsets.only(right: 6),
             child: Text(this.cardInfoModel.title,
                 style: TextStyle(
-                    color: Colors.blueGrey, fontWeight: FontWeight.bold,fontSize: 12)),
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12)),
           ),
-          Text(this.cardInfoModel.value,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          Expanded(
+              child: Text(this.cardInfoModel.value,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16))),
         ],
       ),
     );
