@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:macvon_flutter/common/credit_card.dart';
+
 
 
 /// 信用卡mock数据
@@ -11,3 +13,4 @@ const CreditCardViewModel creditCardData = CreditCardViewModel(
 	cardColors: [Color(0xFFF17B68), Color(0xFFE95F66)],
 	validDate: '10/27',
 );
+

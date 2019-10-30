@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:macvon_flutter/wallet/pcardscene.dart';
+import 'package:macvon_flutter/wallet/vcardscene.dart';
 
 class HeaderItemBean {
   final String labelTitle;
@@ -29,13 +31,11 @@ class Wallet extends StatelessWidget {
     );
 
     Widget body = new TabBarView(
-        children: _allPages.map((HeaderItemBean page) {
-      return Center(
-        child: Container(
-          child: Text(page.labelTitle),
-        ),
-      );
-    }).toList());
+      children: <Widget>[
+        new PhysicalCardScene(),
+        new VirtualCardScene(),
+      ],
+    );
 
     Widget header = Row(
       children: <Widget>[
@@ -54,7 +54,7 @@ class Wallet extends StatelessWidget {
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
-                child:Icon(Icons.add),
+                child: Icon(Icons.add),
               ),
             ],
             title: header,
