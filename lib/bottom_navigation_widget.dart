@@ -12,8 +12,6 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
-  final _bottomNavigationColor = Colors.blue;
-
   var tabImages;
   var appBarTitles = ['Wallet', 'Transaction', 'Budget', 'More'];
 
