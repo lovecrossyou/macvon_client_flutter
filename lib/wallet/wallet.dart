@@ -51,7 +51,6 @@ class Wallet extends StatelessWidget {
         length: _allPages.length,
         child: new Scaffold(
           appBar: new AppBar(
-            centerTitle: false,
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
