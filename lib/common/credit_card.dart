@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CreditCard extends StatelessWidget {
   final CreditCardViewModel data;
 
-  const CreditCard(CreditCardViewModel creditCardData, {Key key, this.data}) : super(key: key);
+  const CreditCard({Key key, this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

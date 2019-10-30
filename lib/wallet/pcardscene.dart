@@ -8,7 +8,7 @@ class PhysicalCardScene extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ListView(
       children: <Widget>[
-        new CreditCard(creditCardData),
+        new CreditCard(data: creditCardData),
       ],
     );
   }
