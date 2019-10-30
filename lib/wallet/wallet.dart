@@ -15,18 +15,21 @@ final List<HeaderItemBean> _allPages = <HeaderItemBean>[
 
 class Wallet extends StatelessWidget {
   Widget _renderTabs() {
-    return new TabBar(
-      isScrollable: true,
-      labelPadding: EdgeInsets.only(right: 16),
-      indicator: YLStatisticsIndictor(),
-      tabs: _allPages
-          .map((HeaderItemBean page) => new Tab(
-                  child: Text(
-                page.labelTitle,
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              )))
-          .toList(),
+    return Material(
+      color: Colors.white,
+      child: new TabBar(
+        isScrollable: true,
+        labelPadding: EdgeInsets.only(right: 16),
+        indicator: YLStatisticsIndictor(),
+        tabs: _allPages
+            .map((HeaderItemBean page) => new Tab(
+                    child: Text(
+                  page.labelTitle,
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                )))
+            .toList(),
+      ),
     );
   }
 
@@ -43,7 +46,10 @@ class Wallet extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          child: Text('Wallet',style: TextStyle(color: Colors.blue),),
+          child: Text(
+            'Wallet',
+            style: TextStyle(color: Colors.blue),
+          ),
         ),
       ],
     );
@@ -61,7 +67,10 @@ class Wallet extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
                 child: new FlatButton(
-                  child: new Text('+ BUDGET',style: TextStyle(color: Colors.blue),),
+                  child: new Text(
+                    '+ BUDGET',
+                    style: TextStyle(color: Colors.blue),
+                  ),
                   onPressed: () {},
                 ),
               ),
