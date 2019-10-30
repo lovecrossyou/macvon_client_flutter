@@ -30,22 +30,27 @@ class Wallet extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Widget body = new TabBarView(
+  Widget _renderBody() {
+    return new TabBarView(
       children: <Widget>[
         new PhysicalCardScene(),
         new VirtualCardScene(),
       ],
     );
+  }
 
-    Widget header = Row(
+  Widget _renderHeader(){
+    return Row(
       children: <Widget>[
         Expanded(
           child: Text('Wallet'),
         ),
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return new DefaultTabController(
         length: _allPages.length,
@@ -57,7 +62,7 @@ class Wallet extends StatelessWidget {
                 child: Icon(Icons.add),
               ),
             ],
-            title: header,
+            title: _renderHeader(),
           ),
           body: Column(
             children: <Widget>[
@@ -68,7 +73,7 @@ class Wallet extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
               ),
               Expanded(
-                child: body,
+                child: _renderBody(),
               )
             ],
           ),
