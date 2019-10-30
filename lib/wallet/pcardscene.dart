@@ -75,8 +75,6 @@ Widget _renderCardInfo() {
         'Address', '101 Morgon lane Sutie 302 Planinsbort,NJ 08536'),
     new CardInfoModel('Exp.Date', '··/··'),
     new CardInfoModel('CVV', '···'),
-    new CardInfoModel('Exp.Date', '··/··'),
-    new CardInfoModel('CVV', '···'),
   ];
   return Container(
     margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
