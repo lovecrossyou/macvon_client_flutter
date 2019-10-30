@@ -51,7 +51,6 @@ class Wallet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return new DefaultTabController(
         length: _allPages.length,
         child: new Scaffold(
