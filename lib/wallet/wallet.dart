@@ -14,9 +14,8 @@ final List<HeaderItemBean> _allPages = <HeaderItemBean>[
 ];
 
 class Wallet extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Widget titleLayout = new TabBar(
+  Widget _renderTabs() {
+    return new TabBar(
       isScrollable: true,
       labelPadding: EdgeInsets.only(right: 16),
       indicator: YLStatisticsIndictor(),
@@ -29,7 +28,10 @@ class Wallet extends StatelessWidget {
               )))
           .toList(),
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     Widget body = new TabBarView(
       children: <Widget>[
         new PhysicalCardScene(),
@@ -50,7 +52,6 @@ class Wallet extends StatelessWidget {
         child: new Scaffold(
           appBar: new AppBar(
             centerTitle: false,
-            // backgroundColor: Color,
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
@@ -63,7 +64,7 @@ class Wallet extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(left: 16),
-                child: titleLayout,
+                child: _renderTabs(),
                 height: 30,
                 width: MediaQuery.of(context).size.width,
               ),
