@@ -12,6 +12,7 @@ class VirtualCardList extends StatelessWidget {
         12,
         (i) => Positioned(
               top: 120.0 * i,
+              height: 180,
               left: 0.0,
               right: 0.0,
               child: _renderCard(),
@@ -26,9 +27,34 @@ class VirtualCardList extends StatelessWidget {
   }
 }
 
+Widget _renderCard() {
+  return new CreditCard(data: creditCardData);
+}
+
+List<Widget> _renderVCardList() {
+  return new List<Widget>.generate(
+      12,
+      (i) => Positioned(
+            top: 120.0 * i,
+            left: 0.0,
+            right: 0.0,
+            height: 180,
+            child: _renderCard(),
+          ));
+}
+
 class VirtualCardScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return VirtualCardList();
+    return SingleChildScrollView(
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: 12 * 120.0 + 60,
+          ),
+          ..._renderVCardList()
+        ],
+      ),
+    );
   }
 }
