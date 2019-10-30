@@ -39,7 +39,7 @@ class Wallet extends StatelessWidget {
     );
   }
 
-  Widget _renderHeader(){
+  Widget _renderHeader() {
     return Row(
       children: <Widget>[
         Expanded(
@@ -55,10 +55,14 @@ class Wallet extends StatelessWidget {
         length: _allPages.length,
         child: new Scaffold(
           appBar: new AppBar(
+            backgroundColor: Colors.white,
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 16.0),
-                child: Icon(Icons.add),
+                child: new FlatButton(
+                  child: new Text('+ BUDGET',style: TextStyle(color: Colors.blue),),
+                  onPressed: () {},
+                ),
               ),
             ],
             title: _renderHeader(),

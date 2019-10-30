@@ -86,6 +86,7 @@ Widget _renderCardInfo() {
     ),
     child: ListView.separated(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: list.length,
       separatorBuilder: (context, index) {
         return Container(
