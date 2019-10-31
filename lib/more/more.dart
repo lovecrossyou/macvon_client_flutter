@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:macvon_flutter/signin/signin.dart';
 
 class More extends StatelessWidget {
   @override
@@ -35,7 +36,7 @@ class BodyWidget extends StatelessWidget {
     );
   }
 
-  Widget _renderBotCard() {
+  Widget _renderBotCard(context) {
     return new SizedBox(
       child: new Card(
         child: new Column(
@@ -52,6 +53,12 @@ class BodyWidget extends StatelessWidget {
             ),
             new Divider(),
             new ListTile(
+              onTap: () => {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return Login();
+                }))
+              },
               title: new Text('Logout',
                   style: new TextStyle(fontWeight: FontWeight.w500)),
               leading: Image.asset(
@@ -113,7 +120,7 @@ class BodyWidget extends StatelessWidget {
       children: <Widget>[
         _renderHeader(),
         _renderCenterCard(),
-        _renderBotCard(),
+        _renderBotCard(context),
       ],
     );
   }

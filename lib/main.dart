@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'bottom_navigation_widget.dart';
 
 // import 'signin/signin.dart';
-void main()=> runApp(MyApp());
+void main()=> runApp(MacvonApp());
 
-class MyApp extends StatelessWidget {
+class MacvonApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

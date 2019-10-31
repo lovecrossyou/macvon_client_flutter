@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groovin_material_icons/groovin_material_icons.dart';
+import 'package:macvon_flutter/main.dart';
 
 
 class Login extends StatelessWidget {
@@ -99,10 +100,11 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.black,
           onPressed: () {
             if (_formKey.currentState.validate()) {
-              ///只有输入的内容符合要求通过才会到达此处
               _formKey.currentState.save();
-              //TODO 执行登录方法
               print('email:$_email , password:$_password');
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
+                return MacvonApp();
+              }));
             }
           },
           shape: StadiumBorder(side: BorderSide()),
