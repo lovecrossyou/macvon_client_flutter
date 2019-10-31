@@ -23,6 +23,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  groovin_material_icons: ^1.1.5
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +50,14 @@ flutter:
     - assets/tab_icon/tab_icon_transactions_s.png
     - assets/tab_icon/tab_icon_wallet_d.png
     - assets/tab_icon/tab_icon_wallet_s.png
+    - assets/more/funds.png
+    - assets/more/more_btn_edit.png
+    - assets/more/more_icon_alerts.png
+    - assets/more/more_icon_login_options.png
+    - assets/more/more_icon_logout.png
+    - assets/more/more_icon_requests.png
+    - assets/more/more_icon_sendfunds.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

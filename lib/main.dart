@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'bottom_navigation_widget.dart';
+
+// import 'signin/signin.dart';
 void main()=> runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -9,6 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'Macvon home',
       theme: ThemeData.light(),
       home: BottomNavigationWidget(),
+      // home: LoginPage(),
     );
   }
 }
