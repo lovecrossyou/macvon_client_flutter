@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:groovin_material_icons/groovin_material_icons.dart';
+import 'package:macvon_flutter/common/macvon_button.dart';
 import 'package:macvon_flutter/main.dart';
-
 
 class Login extends StatelessWidget {
   @override
@@ -19,23 +18,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email, _password;
+  String _email = 'owner@americansunion.com', _password='Password_123';
   bool _isObscure = true;
   Color _eyeColor;
-  List _loginMethod = [
-    {
-      "title": "facebook",
-      "icon": GroovinMaterialIcons.facebook,
-    },
-    {
-      "title": "google",
-      "icon": GroovinMaterialIcons.google,
-    },
-    {
-      "title": "twitter",
-      "icon": GroovinMaterialIcons.twitter,
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -62,53 +47,20 @@ class _LoginPageState extends State<LoginPage> {
             )));
   }
 
-  ButtonBar buildOtherMethod(BuildContext context) {
-    return ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: _loginMethod
-          .map((item) => Builder(
-                builder: (context) {
-                  return IconButton(
-                      icon: Icon(item['icon'],
-                          color: Theme.of(context).iconTheme.color),
-                      onPressed: () {
-                        //TODO : 第三方登录方法
-                        Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text("${item['title']}登录"),
-                          action: new SnackBarAction(
-                            label: "取消",
-                            onPressed: () {},
-                          ),
-                        ));
-                      });
-                },
-              ))
-          .toList(),
-    );
-  }
-
   Align buildLoginButton(BuildContext context) {
     return Align(
-      child: SizedBox(
-        height: 45.0,
-        width: 270.0,
-        child: RaisedButton(
-          child: Text(
-            'Login',
-            style: Theme.of(context).primaryTextTheme.headline,
-          ),
-          color: Colors.black,
-          onPressed: () {
-            if (_formKey.currentState.validate()) {
-              _formKey.currentState.save();
-              print('email:$_email , password:$_password');
-              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-                return MacvonApp();
-              }));
-            }
-          },
-          shape: StadiumBorder(side: BorderSide()),
-        ),
+      child: GradientButton(
+        child: Text('LOG IN'),
+        onTap: () {
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
+            print('email:$_email , password:$_password');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext context) {
+              return MacvonApp();
+            }));
+          }
+        },
       ),
     );
   }
@@ -192,8 +144,8 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Macvon',
-        style: TextStyle(fontSize: 42.0),
+        'Welcome to, Macvon',
+        style: TextStyle(fontSize: 42.0, color: Color.fromRGBO(40, 40, 40, 1)),
       ),
     );
   }
