@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:macvon_flutter/common/macvon_button.dart';
-import 'package:macvon_flutter/main.dart';
+import 'package:macvon_flutter/utils/Api.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email = 'owner@americansunion.com', _password='Password_123';
+  String _email = 'owner@americansunion.com', _password = 'Password_123';
   bool _isObscure = true;
   Color _eyeColor;
 
@@ -47,20 +47,27 @@ class _LoginPageState extends State<LoginPage> {
             )));
   }
 
+  _verifyAndLogin() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      try {
+        Api.doLogin({"username": '$_email', "password": '$_password'});
+        // print(result.headers);
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (BuildContext context) {
+        //   return MacvonApp();
+        // }));
+      } catch (exception) {
+        print('exception $exception');
+      }
+    }
+  }
+
   Align buildLoginButton(BuildContext context) {
     return Align(
       child: GradientButton(
         child: Text('LOG IN'),
-        onTap: () {
-          if (_formKey.currentState.validate()) {
-            _formKey.currentState.save();
-            print('email:$_email , password:$_password');
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return MacvonApp();
-            }));
-          }
-        },
+        onTap: _verifyAndLogin,
       ),
     );
   }
@@ -85,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
   TextFormField buildPasswordTextField(BuildContext context) {
     return TextFormField(
+      initialValue: 'Password_123',
       onSaved: (String value) => _password = value,
       obscureText: _isObscure,
       validator: (String value) {
@@ -112,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
 
   TextFormField buildEmailTextField() {
     return TextFormField(
+      initialValue: 'owner@americansunion.com',
       decoration: InputDecoration(
         labelText: 'Emall Address',
       ),
@@ -144,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Welcome to, Macvon',
+        'Welcome to, Macnov',
         style: TextStyle(fontSize: 42.0, color: Color.fromRGBO(40, 40, 40, 1)),
       ),
     );
