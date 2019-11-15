@@ -101,19 +101,18 @@ class HttpManager {
       response = await _dio.post(api, data: params);
     } on DioError catch (e) {
       print('DioError ${e.response.data.toString()}');
+      var responseData = response?.data;
+      var msg = (responseData?.message) ?? 'request failed';
       Fluttertoast.showToast(
-          msg: e.response.data.message,
+          msg: msg,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIos: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
           fontSize: 16.0);
       return resultError(e);
     }
     if (response.data is DioError) {
-      print('response.data');
-
+      print('response.data##');
       return resultError(response.data['code']);
     }
     print(response.statusCode);
