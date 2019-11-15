@@ -100,7 +100,6 @@ class HttpManager {
     try {
       response = await _dio.post(api, data: params);
     } on DioError catch (e) {
-      print('DioError ${e.response.data.toString()}');
       var responseData = response?.data;
       var msg = (responseData?.message) ?? 'request failed';
       Fluttertoast.showToast(
