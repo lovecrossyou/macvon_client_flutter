@@ -1,4 +1,7 @@
+import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:macvon_flutter/signin/signin.dart';
+import 'package:macvon_flutter/utils/event_bus.dart';
 import 'package:macvon_flutter/wallet/wallet.dart';
 import 'package:macvon_flutter/transaction/transaction.dart';
 import 'package:macvon_flutter/more/more.dart';
@@ -14,9 +17,16 @@ class BottomNavigationWidget extends StatefulWidget {
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   var tabImages;
   var appBarTitles = ['Wallet', 'Transaction', 'Budget', 'More'];
-
+  var _loginSubscription;
   int _currentIndex = 0;
   List<Widget> list = List();
+
+  @override
+  void dispose() {
+    super.dispose();
+    //取消订阅
+    _loginSubscription.cancel();
+  }
 
   /*
    * 根据选择获得对应的normal或是press的icon
@@ -70,6 +80,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   void initState() {
     list..add(Wallet())..add(Transaction())..add(Budget())..add(More());
     super.initState();
+    _eventBus();
   }
 
   @override
@@ -98,5 +109,18 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         type: BottomNavigationBarType.fixed,
       ),
     );
+  }
+
+  _eventBus() {
+    //订阅login event
+    _loginSubscription = eventBus.on<LoginEvent>().listen((event) {
+      _goLoginPage();
+    });
+  }
+
+  _goLoginPage() {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return Login();
+    }));
   }
 }

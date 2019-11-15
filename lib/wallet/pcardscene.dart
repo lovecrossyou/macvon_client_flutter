@@ -1,9 +1,10 @@
+import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
+import 'package:macvon_flutter/utils/Api.dart';
 import 'package:macvon_flutter/wallet/mock_data.dart';
-
 
 class HeaderTitle extends StatelessWidget {
   @override
@@ -119,16 +120,59 @@ class CardInfo extends StatelessWidget {
   }
 }
 
-class PhysicalCardScene extends StatelessWidget {
+class PhysicalCardScene extends StatefulWidget {
+  @override
+  _PhysicalCardSceneState createState() => _PhysicalCardSceneState();
+}
+
+class _PhysicalCardSceneState extends State<PhysicalCardScene> {
+  List cards;
+  @override
+  void initState() {
+    super.initState();
+    _loadPhysicalCards();
+  }
+
+  List<Widget> _renderPage() {
+    return <Widget>[
+      new CreditCard(data: creditCardData),
+      new CardInfo(),
+      new TransactionList()
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return new ListView(
       shrinkWrap: true,
-      children: <Widget>[
-        new CreditCard(data: creditCardData),
-        new CardInfo(),
-        new TransactionList()
-      ],
+      children: cards != null ? _renderPage() : _loading(),
     );
+  }
+
+  //预加载布局
+  List<Widget> _loading() {
+    return <Widget>[
+      new Container(
+        height: 300.0,
+        child: new Center(
+            child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new CircularProgressIndicator(
+              strokeWidth: 1.0,
+            ),
+            new Text("loading.."),
+          ],
+        )),
+      )
+    ];
+  }
+
+  void _loadPhysicalCards() async {
+    var physicalCards = await Api.loadPhysicalCards();
+    // setState(() {
+    //   cards = physicalCards;
+    // });
+    // println(cards.toString());
   }
 }

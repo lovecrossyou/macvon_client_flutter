@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:macvon_flutter/utils/event_bus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'code.dart';
@@ -108,10 +108,10 @@ class HttpManager {
           gravity: ToastGravity.CENTER,
           timeInSecForIos: 1,
           fontSize: 16.0);
+      eventBus.fire(LoginEvent());
       return resultError(e);
     }
     if (response.data is DioError) {
-      print('response.data##');
       return resultError(response.data['code']);
     }
     print(response.statusCode);
