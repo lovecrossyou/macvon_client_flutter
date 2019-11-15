@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'code.dart';
+
 // import 'response_interceptor.dart';
 import 'result_data.dart';
 import 'address.dart';
@@ -18,7 +21,7 @@ class HttpManager {
     if (null == _dio) {
       _dio = new Dio(
           new BaseOptions(baseUrl: Address.BASE_URL, connectTimeout: 15000));
-      // tokenInterceptor();
+      tokenInterceptor();
       // _dio.interceptors.add(tokenInterceptor());
     }
   }
@@ -97,11 +100,23 @@ class HttpManager {
     try {
       response = await _dio.post(api, data: params);
     } on DioError catch (e) {
+      print('DioError ${e.response.data.toString()}');
+      Fluttertoast.showToast(
+          msg: e.response.data.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       return resultError(e);
     }
     if (response.data is DioError) {
+      print('response.data');
+
       return resultError(response.data['code']);
     }
+    print(response.statusCode);
     return response;
   }
 }
