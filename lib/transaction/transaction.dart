@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:macvon_flutter/wallet/pcardscene.dart';
-import 'package:macvon_flutter/wallet/vcardscene.dart';
+import 'package:macvon_flutter/common/indicator.dart';
+import 'package:macvon_flutter/common/loading.dart';
+import 'package:macvon_flutter/transaction/transactionlist.dart';
+import 'package:macvon_flutter/utils/Api.dart';
 
 class HeaderItemBean {
   final String labelTitle;
@@ -13,7 +15,26 @@ final List<HeaderItemBean> _allPages = <HeaderItemBean>[
   new HeaderItemBean("all transactions"),
 ];
 
-class Transaction extends StatelessWidget {
+class Transaction extends StatefulWidget {
+  @override
+  _TransactionState createState() => _TransactionState();
+}
+
+class _TransactionState extends State<Transaction> {
+  dynamic txns ;
+  @override
+  void initState() {
+    super.initState();
+    _loadTxns();
+  }
+
+  _loadTxns() async {
+    var txnsData = await Api.loadTxn();
+    setState(() {
+      txns = txnsData;
+    });
+  }
+
   Widget _renderTabs() {
     return Material(
       color: Colors.white,
@@ -33,10 +54,11 @@ class Transaction extends StatelessWidget {
   }
 
   Widget _renderBody() {
+    if(txns == null) return Loading();
     return new TabBarView(
       children: <Widget>[
-        new PhysicalCardScene(),
-        new VirtualCardScene(),
+        new TransactionList(txns),
+        new TransactionList(txns),
       ],
     );
   }
@@ -79,26 +101,5 @@ class Transaction extends StatelessWidget {
             ],
           ),
         ));
-  }
-}
-
-class YLStatisticsIndictor extends Decoration {
-  @override
-  BoxPainter createBoxPainter([VoidCallback onChanged]) {
-    return _YLIndictorPainter();
-  }
-}
-
-class _YLIndictorPainter extends BoxPainter {
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final Paint paint = Paint();
-    paint.color = Color(0xff376BD1);
-    paint.style = PaintingStyle.fill;
-    final w = 24.0;
-    final h = 2.5;
-    canvas.drawRect(
-        Rect.fromLTWH(offset.dx + 16, configuration.size.height - h, w, h),
-        paint);
   }
 }

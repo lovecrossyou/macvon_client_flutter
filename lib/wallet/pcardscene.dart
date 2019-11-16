@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
+import 'package:macvon_flutter/common/loading.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
 import 'package:macvon_flutter/utils/Api.dart';
 import 'package:macvon_flutter/wallet/components/card_info_item.dart';
@@ -65,9 +66,10 @@ class PhysicalCardScene extends StatefulWidget {
 }
 
 class _PhysicalCardSceneState extends State<PhysicalCardScene> {
-  List cards;
+  List cards ;
   CreditCardViewModel physicalCard;
   dynamic physicalCardInfo;
+  List txns = [];
   @override
   void initState() {
     super.initState();
@@ -78,47 +80,29 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
     return <Widget>[
       new CreditCard(data: physicalCard),
       new CardInfo(physicalCardInfo),
-      new TransactionList()
+      new TransactionList(txns)
     ];
   }
 
   @override
   Widget build(BuildContext context) {
+    if(cards == null)return Loading();
     return new ListView(
       shrinkWrap: true,
-      children: cards != null ? _renderPage() : _loading(),
+      children: _renderPage(),
     );
   }
 
-  //预加载布局
-  List<Widget> _loading() {
-    return <Widget>[
-      new Container(
-        height: 300.0,
-        child: new Center(
-            child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new CircularProgressIndicator(
-              strokeWidth: 1.0,
-            ),
-            new Text("loading.."),
-          ],
-        )),
-      )
-    ];
-  }
-
   void _loadPhysicalCards() async {
-    var allCards = await Api.loadAllCards();
+    var allCards = await Api.loadVCards();
     var physicalCardInfoJson = await Api.loadPhysicalCard();
-    print('${physicalCardInfoJson.toString()}');
-
+    var txnsData = await Api.loadTxn();
 
     setState(() {
       cards = allCards;
       physicalCard = new CreditCardViewModel.fromJson(allCards.first);
       physicalCardInfo = physicalCardInfoJson;
+      txns = txnsData;
     });
   }
 }

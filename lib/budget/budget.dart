@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:macvon_flutter/wallet/pcardscene.dart';
-import 'package:macvon_flutter/wallet/vcardscene.dart';
+import 'package:macvon_flutter/budget/budget_list.dart';
+import 'package:macvon_flutter/common/indicator.dart';
+import 'package:macvon_flutter/common/loading.dart';
+import 'package:macvon_flutter/utils/Api.dart';
 
 class HeaderItemBean {
   final String labelTitle;
@@ -13,7 +15,27 @@ final List<HeaderItemBean> _allPages = <HeaderItemBean>[
   new HeaderItemBean("all budgets"),
 ];
 
-class Budget extends StatelessWidget {
+
+class Budget extends StatefulWidget {
+  @override
+  _Budget createState() => _Budget();
+}
+
+class _Budget extends State<Budget> {
+  dynamic budgets ;
+  @override
+  void initState() {
+    super.initState();
+    _loadBudgets();
+  }
+
+  _loadBudgets() async {
+    var budgetsData = await Api.getCompanyActiveBudgets();
+    setState(() {
+      budgets = budgetsData;
+    });
+  }
+
   Widget _renderTabs() {
     return Material(
       color: Colors.white,
@@ -33,10 +55,11 @@ class Budget extends StatelessWidget {
   }
 
   Widget _renderBody() {
+    if(budgets == null) return Loading();
     return new TabBarView(
       children: <Widget>[
-        new PhysicalCardScene(),
-        new VirtualCardScene(),
+        new BudgetList(budgets),
+        new BudgetList(budgets),
       ],
     );
   }
@@ -63,18 +86,6 @@ class Budget extends StatelessWidget {
             brightness: Brightness.light,
             backgroundColor: Colors.white,
             elevation: 0,
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: new FlatButton(
-                  child: new Text(
-                    '+ BUDGET',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ],
             title: _renderHeader(),
           ),
           body: Column(
@@ -91,26 +102,5 @@ class Budget extends StatelessWidget {
             ],
           ),
         ));
-  }
-}
-
-class YLStatisticsIndictor extends Decoration {
-  @override
-  BoxPainter createBoxPainter([VoidCallback onChanged]) {
-    return _YLIndictorPainter();
-  }
-}
-
-class _YLIndictorPainter extends BoxPainter {
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final Paint paint = Paint();
-    paint.color = Color(0xff376BD1);
-    paint.style = PaintingStyle.fill;
-    final w = 24.0;
-    final h = 2.5;
-    canvas.drawRect(
-        Rect.fromLTWH(offset.dx + 16, configuration.size.height - h, w, h),
-        paint);
   }
 }

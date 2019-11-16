@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TransactionList extends StatelessWidget {
-  final List txns;
-  TransactionList(this.txns);
+class BudgetList extends StatelessWidget {
+  final List budgets;
+  BudgetList(this.budgets);
 
   List<Widget> _renderList() {
-    return txns
-        .map((txn) => Card(
+    return budgets
+        .map((budget) => Card(
               child: ListTile(
                 leading: FlutterLogo(size: 56.0),
-                title: Text(txn['merchant']),
-                subtitle: Text(txn['txnDate']),
-                trailing: Text(txn['amount']),
+                title: Text(budget['name']),
+                subtitle: Text(budget['budgetType']),
+                trailing: Text(budget['unassigned']),
               ),
             ))
         .toList();

@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
+import 'package:macvon_flutter/common/loading.dart';
 import 'package:macvon_flutter/utils/Api.dart';
 
 class VirtualCardScene extends StatefulWidget {
@@ -47,37 +48,18 @@ class _VirtualCardSceneState extends State<VirtualCardScene> {
 
   @override
   Widget build(BuildContext context) {
+    if (cards == null) return Loading();
     return SingleChildScrollView(
       child: Stack(
-        children: cards != null ? _renderPage() : _loading(),
+        children: _renderPage(),
       ),
     );
   }
 
-  //预加载布局
-  List<Widget> _loading() {
-    return <Widget>[
-      new Container(
-        height: 300.0,
-        child: new Center(
-            child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new CircularProgressIndicator(
-              strokeWidth: 1.0,
-            ),
-            new Text("loading.."),
-          ],
-        )),
-      )
-    ];
-  }
-
   void _loadPhysicalCards() async {
-    var physicalCards = await Api.loadAllCards();
+    var vCards = await Api.loadVCards();
     setState(() {
-      cards = physicalCards;
+      cards = vCards;
     });
-    println(cards.toString());
   }
 }

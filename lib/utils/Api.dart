@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:fish_redux/fish_redux.dart';
-import 'dart:convert';
 import 'http_manager.dart';
 import 'address.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +21,13 @@ class Api {
     return cardResponse.data;
   }
 
+  static Future<dynamic> loadVCards() async{
+    Response<dynamic> cardResponse =
+        await HttpManager.getInstance().post(Address.OWNER_LOAD_VCARDS, {});
+    return cardResponse.data;
+  }
+
+
   static Future<dynamic> loadPhysicalCard() async {
     Response<dynamic> cardResponse =
         await HttpManager.getInstance().post(Address.OWNER_LOAD_ALL_CARDS, {});
@@ -32,9 +37,20 @@ class Api {
   }
 
   static Future<dynamic> loadVCardInfo(params) async {
-    print(params);
     Response<dynamic> cardInfoResponse = await HttpManager.getInstance()
         .get(Address.OWNER_GET_CARD_INFO, params);
     return cardInfoResponse.data;
+  }
+
+  static Future<dynamic> loadTxn() async {
+    Response<dynamic> txnResponse = await HttpManager.getInstance()
+        .post(Address.OWNER_PENGING_CLEAR_TXN, {});
+    return txnResponse.data;
+  }
+
+  static Future<dynamic> getCompanyActiveBudgets()async {
+    Response<dynamic> budgetResponse = await HttpManager.getInstance()
+        .get(Address.OWNER_ACTIVE_BUDGETS, {});
+    return budgetResponse.data;
   }
 }
