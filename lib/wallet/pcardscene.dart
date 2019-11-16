@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
 import 'package:macvon_flutter/utils/Api.dart';
+import 'package:macvon_flutter/utils/http_util.dart';
 import 'package:macvon_flutter/wallet/mock_data.dart';
 
 class HeaderTitle extends StatelessWidget {
@@ -134,8 +135,12 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
   }
 
   List<Widget> _renderPage() {
+    var physicalCard = cards.first;
+    CreditCardViewModel creditCardViewModel =
+        new CreditCardViewModel.fromJson(physicalCard);
+        
     return <Widget>[
-      new CreditCard(data: creditCardData),
+      new CreditCard(data: creditCardViewModel),
       new CardInfo(),
       new TransactionList()
     ];
@@ -170,9 +175,9 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
 
   void _loadPhysicalCards() async {
     var physicalCards = await Api.loadPhysicalCards();
-    // setState(() {
-    //   cards = physicalCards;
-    // });
-    // println(cards.toString());
+    setState(() {
+      cards = physicalCards;
+    });
+    println(cards.toString());
   }
 }

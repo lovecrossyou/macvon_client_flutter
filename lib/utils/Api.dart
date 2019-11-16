@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'dart:convert';
 import 'http_manager.dart';
@@ -18,7 +19,8 @@ class Api {
 
   static Future<dynamic> loadPhysicalCards() async {
     List<dynamic> l = new List();
-    List<dynamic> cards =
+    Response<dynamic> cardResponse =
         await HttpManager.getInstance().post(Address.OWNER_LOAD_ALL_CARDS, {});
+        return cardResponse.data;
   }
 }

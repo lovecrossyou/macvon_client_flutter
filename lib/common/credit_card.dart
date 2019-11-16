@@ -63,7 +63,7 @@ class CreditCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          this.data.bankName,
+                          this.data.nickName,
                           style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
@@ -71,7 +71,7 @@ class CreditCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          this.data.cardType,
+                          this.data.budgetType,
                           style: TextStyle(
                             fontSize: 14,
                             color: Color.fromARGB(200, 255, 255, 255),
@@ -84,7 +84,7 @@ class CreditCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 65, top: 20),
                   child: Text(
-                    this.data.cardNumber,
+                    this.data.cardId,
                     style: TextStyle(
                       fontSize: 16,
                       fontFamily: 'Farrington',
@@ -113,17 +113,8 @@ class CreditCard extends StatelessWidget {
 }
 
 class CreditCardViewModel {
-  /// 银行
-  final String bankName;
-
   /// 银行Logo
   final String bankLogoUrl;
-
-  /// 卡类型
-  final String cardType;
-
-  /// 卡号
-  final String cardNumber;
 
   /// 卡片颜色
   final List<Color> cardColors;
@@ -131,12 +122,47 @@ class CreditCardViewModel {
   /// 有效期
   final String validDate;
 
-  const CreditCardViewModel({
-    this.bankName,
-    this.bankLogoUrl,
-    this.cardType,
-    this.cardNumber,
-    this.cardColors,
-    this.validDate,
-  });
+  final String nickName;
+  final String cardOwner;
+  final String vendor;
+
+  final String budget;
+  final String lastChargedOn;
+  final String type;
+
+  final String cardId;
+  final String budgetId;
+  final String status;
+  final String budgetType;
+
+  CreditCardViewModel(
+      this.bankLogoUrl,
+      this.cardColors,
+      this.validDate,
+      this.nickName,
+      this.cardOwner,
+      this.vendor,
+      this.budget,
+      this.lastChargedOn,
+      this.type,
+      this.cardId,
+      this.budgetId,
+      this.status,
+      this.budgetType);
+
+  CreditCardViewModel.fromJson(
+    Map<String, dynamic> json,
+  )   : nickName = json['nickName'],
+        cardOwner = json['cardOwner'],
+        vendor = json['vendor'],
+        budget = json['budget'],
+        lastChargedOn = json['lastChargedOn'],
+        type = json['type'],
+        cardId = json['cardId'],
+        budgetId = json['budgetId'],
+        status = json['status'],
+        budgetType = json['budgetType'],
+        bankLogoUrl = 'assets/pics/bank_zs.png',
+        cardColors =[Color(0xFFF17B68), Color(0xFFE95F66)],
+        validDate = 'CVV 10/27';
 }
