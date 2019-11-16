@@ -17,10 +17,24 @@ class Api {
     callback();
   }
 
-  static Future<dynamic> loadPhysicalCards() async {
-    List<dynamic> l = new List();
+  static Future<dynamic> loadAllCards() async {
     Response<dynamic> cardResponse =
         await HttpManager.getInstance().post(Address.OWNER_LOAD_ALL_CARDS, {});
-        return cardResponse.data;
+    return cardResponse.data;
+  }
+
+  static Future<dynamic> loadPhysicalCard() async {
+    Response<dynamic> cardResponse =
+        await HttpManager.getInstance().post(Address.OWNER_LOAD_ALL_CARDS, {});
+    var card = cardResponse.data.first;
+    var cardInfo = await loadVCardInfo({"id": "${card['id']}"});
+    return cardInfo;
+  }
+
+  static Future<dynamic> loadVCardInfo(params) async {
+    print(params);
+    Response<dynamic> cardInfoResponse = await HttpManager.getInstance()
+        .get(Address.OWNER_GET_CARD_INFO, params);
+    return cardInfoResponse.data;
   }
 }

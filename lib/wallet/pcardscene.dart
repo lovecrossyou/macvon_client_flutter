@@ -1,82 +1,17 @@
-import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
 import 'package:macvon_flutter/utils/Api.dart';
-import 'package:macvon_flutter/utils/http_util.dart';
-import 'package:macvon_flutter/wallet/mock_data.dart';
+import 'package:macvon_flutter/wallet/components/card_info_item.dart';
 
-class HeaderTitle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Container(
-            color: Colors.blue,
-            margin: EdgeInsets.only(right: 4),
-            width: 4,
-            height: 13,
-          ),
-          Expanded(
-            child: Text('CARD INFORMATION',
-                style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CardInfoModel {
-  final String title;
-  final String value;
-
-  CardInfoModel(this.title, this.value);
-}
-
-class CardInfoItem extends StatelessWidget {
-  final CardInfoModel cardInfoModel;
-
-  const CardInfoItem({Key key, @required this.cardInfoModel}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 90,
-            margin: EdgeInsets.only(right: 6),
-            child: Text(this.cardInfoModel.title,
-                style: TextStyle(
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14)),
-          ),
-          Expanded(
-              child: Text(this.cardInfoModel.value,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16))),
-        ],
-      ),
-    );
-  }
-}
-
-Widget _renderCardInfo() {
+Widget _renderCardInfo(dynamic cardInfoModel) {
   List<CardInfoModel> list = [
-    new CardInfoModel('Card Number', '.... .... .... 4529'),
-    new CardInfoModel('Card Holder', 'xing zhang'),
-    new CardInfoModel(
-        'Address', '101 Morgon lane Sutie 302 Planinsbort,NJ 08536'),
-    new CardInfoModel('Exp.Date', '··/··'),
-    new CardInfoModel('CVV', '···'),
+    new CardInfoModel('Card Number', "${cardInfoModel['cardId']}"),
+    new CardInfoModel('Card Holder', "${cardInfoModel['cardHolder']}"),
+    new CardInfoModel('Address', "${cardInfoModel['address']}"),
+    new CardInfoModel('Exp.Date', "${cardInfoModel['expiration']}"),
+    new CardInfoModel('CVC', "${cardInfoModel['cvc']}"),
   ];
   return Container(
     margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
@@ -105,6 +40,9 @@ Widget _renderCardInfo() {
 }
 
 class CardInfo extends StatelessWidget {
+  final cardInfoModel;
+
+  CardInfo(this.cardInfoModel);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -113,7 +51,7 @@ class CardInfo extends StatelessWidget {
         children: <Widget>[
           HeaderTitle(),
           Container(
-            child: _renderCardInfo(),
+            child: _renderCardInfo(cardInfoModel),
           )
         ],
       ),
@@ -128,6 +66,8 @@ class PhysicalCardScene extends StatefulWidget {
 
 class _PhysicalCardSceneState extends State<PhysicalCardScene> {
   List cards;
+  CreditCardViewModel physicalCard;
+  dynamic physicalCardInfo;
   @override
   void initState() {
     super.initState();
@@ -135,13 +75,9 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
   }
 
   List<Widget> _renderPage() {
-    var physicalCard = cards.first;
-    CreditCardViewModel creditCardViewModel =
-        new CreditCardViewModel.fromJson(physicalCard);
-        
     return <Widget>[
-      new CreditCard(data: creditCardViewModel),
-      new CardInfo(),
+      new CreditCard(data: physicalCard),
+      new CardInfo(physicalCardInfo),
       new TransactionList()
     ];
   }
@@ -174,10 +110,15 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
   }
 
   void _loadPhysicalCards() async {
-    var physicalCards = await Api.loadPhysicalCards();
+    var allCards = await Api.loadAllCards();
+    var physicalCardInfoJson = await Api.loadPhysicalCard();
+    print('${physicalCardInfoJson.toString()}');
+
+
     setState(() {
-      cards = physicalCards;
+      cards = allCards;
+      physicalCard = new CreditCardViewModel.fromJson(allCards.first);
+      physicalCardInfo = physicalCardInfoJson;
     });
-    println(cards.toString());
   }
 }

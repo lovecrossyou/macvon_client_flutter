@@ -74,7 +74,7 @@ class _VirtualCardSceneState extends State<VirtualCardScene> {
   }
 
   void _loadPhysicalCards() async {
-    var physicalCards = await Api.loadPhysicalCards();
+    var physicalCards = await Api.loadAllCards();
     setState(() {
       cards = physicalCards;
     });

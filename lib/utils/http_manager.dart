@@ -22,7 +22,6 @@ class HttpManager {
       _dio = new Dio(
           new BaseOptions(baseUrl: Address.BASE_URL, connectTimeout: 15000));
       tokenInterceptor();
-      // _dio.interceptors.add(tokenInterceptor());
     }
   }
 
@@ -81,15 +80,11 @@ class HttpManager {
     try {
       response = await _dio.get(api, queryParameters: params);
     } on DioError catch (e) {
+          print("通用的GET请求catch ${e.response.toString()}");
       return resultError(e);
     }
-
     if (response.data is DioError) {
       return resultError(response.data['code']);
-    }
-
-    if (response.data) {
-      return response.data;
     }
     return response;
   }
@@ -114,7 +109,6 @@ class HttpManager {
     if (response.data is DioError) {
       return resultError(response.data['code']);
     }
-    print(response.statusCode);
     return response;
   }
 }
