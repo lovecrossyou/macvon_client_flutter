@@ -14,4 +14,8 @@ class Address {
 
   // budget
   static String OWNER_ACTIVE_BUDGETS = 'owner/getCompanyActiveBudgets';
+
+  // user
+
+  static String OWNER_USER_SETTING = 'owner/getUserSetting';
 }

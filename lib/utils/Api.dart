@@ -4,6 +4,7 @@ import 'address.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Api {
+  // user
   static Future<Null> doLogin(
       Map<String, String> params, Function callback) async {
     var response = await HttpManager.getInstance().post(Address.LOGIN, params);
@@ -15,6 +16,13 @@ class Api {
     callback();
   }
 
+  static Future<dynamic> loadUserSetting() async {
+    Response<dynamic> userResponse =
+        await HttpManager.getInstance().post(Address.OWNER_USER_SETTING, {});
+    return userResponse.data;
+  }
+
+// card
   static Future<dynamic> loadAllCards() async {
     Response<dynamic> cardResponse =
         await HttpManager.getInstance().post(Address.OWNER_LOAD_ALL_CARDS, {});
@@ -41,12 +49,14 @@ class Api {
     return cardInfoResponse.data;
   }
 
+// transaction
   static Future<dynamic> loadTxn() async {
     Response<dynamic> txnResponse = await HttpManager.getInstance()
         .post(Address.OWNER_PENGING_CLEAR_TXN, {});
     return txnResponse.data;
   }
 
+// budget
   static Future<dynamic> getCompanyActiveBudgets() async {
     Map<String, dynamic> queryParameters = new Map<String, dynamic>();
     Response<dynamic> budgetResponse = await HttpManager.getInstance()

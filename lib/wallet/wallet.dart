@@ -69,7 +69,7 @@ class Wallet extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 16.0),
                 child: new FlatButton(
                   child: new Text(
-                    '+ BUDGET',
+                    '+ CARD',
                     style: TextStyle(color: Colors.blue),
                   ),
                   onPressed: () {},
