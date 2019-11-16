@@ -15,14 +15,13 @@ final List<HeaderItemBean> _allPages = <HeaderItemBean>[
   new HeaderItemBean("all budgets"),
 ];
 
-
 class Budget extends StatefulWidget {
   @override
   _Budget createState() => _Budget();
 }
 
 class _Budget extends State<Budget> {
-  dynamic budgets ;
+  dynamic budgets;
   @override
   void initState() {
     super.initState();
@@ -55,7 +54,7 @@ class _Budget extends State<Budget> {
   }
 
   Widget _renderBody() {
-    if(budgets == null) return Loading();
+    if (budgets == null) return Loading();
     return new TabBarView(
       children: <Widget>[
         new BudgetList(budgets),

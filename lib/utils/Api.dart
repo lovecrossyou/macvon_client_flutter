@@ -21,12 +21,11 @@ class Api {
     return cardResponse.data;
   }
 
-  static Future<dynamic> loadVCards() async{
+  static Future<dynamic> loadVCards() async {
     Response<dynamic> cardResponse =
         await HttpManager.getInstance().post(Address.OWNER_LOAD_VCARDS, {});
     return cardResponse.data;
   }
-
 
   static Future<dynamic> loadPhysicalCard() async {
     Response<dynamic> cardResponse =
@@ -48,9 +47,10 @@ class Api {
     return txnResponse.data;
   }
 
-  static Future<dynamic> getCompanyActiveBudgets()async {
+  static Future<dynamic> getCompanyActiveBudgets() async {
+    Map<String, dynamic> queryParameters = new Map<String, dynamic>();
     Response<dynamic> budgetResponse = await HttpManager.getInstance()
-        .get(Address.OWNER_ACTIVE_BUDGETS, {});
+        .get(Address.OWNER_ACTIVE_BUDGETS, queryParameters);
     return budgetResponse.data;
   }
 }

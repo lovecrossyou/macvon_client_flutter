@@ -10,8 +10,8 @@ class BudgetList extends StatelessWidget {
               child: ListTile(
                 leading: FlutterLogo(size: 56.0),
                 title: Text(budget['name']),
-                subtitle: Text(budget['budgetType']),
-                trailing: Text(budget['unassigned']),
+                subtitle: Text("${budget['budgetType']}"),
+                trailing: Text("${budget['unassigned']}"),
               ),
             ))
         .toList();

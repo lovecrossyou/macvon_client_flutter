@@ -12,7 +12,6 @@ class Address {
 //  txn
   static String OWNER_PENGING_CLEAR_TXN = 'owner/pendingAndClearedTransactions';
 
-
   // budget
   static String OWNER_ACTIVE_BUDGETS = 'owner/getCompanyActiveBudgets';
 }

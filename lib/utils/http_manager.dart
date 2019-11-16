@@ -80,12 +80,13 @@ class HttpManager {
     try {
       response = await _dio.get(api, queryParameters: params);
     } on DioError catch (e) {
-          print("通用的GET请求catch ${e.response.toString()}");
+      print("通用的GET请求catch ${e.response.toString()}");
       return resultError(e);
     }
     if (response.data is DioError) {
       return resultError(response.data['code']);
     }
+    // print("通用的GET请求 ${response.toString()}");
     return response;
   }
 
