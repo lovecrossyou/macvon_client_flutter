@@ -73,8 +73,8 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
   @override
   void initState() {
     super.initState();
+    walletStore.loadPhysicalCardInfo();
     walletStore.loadPhysicalCard();
-    walletStore.loadVCards();
     txnStore.loadTxn();
   }
 

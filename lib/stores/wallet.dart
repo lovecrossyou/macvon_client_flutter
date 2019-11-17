@@ -19,28 +19,22 @@ abstract class _WalletStore with Store {
   @observable
   List vcards = [];
 
- 
-
   @action
   Future loadVCards() async {
     var allCards = await Api.loadVCards();
-    var physicalCardInfoJson = await Api.loadPhysicalCard();
-
-    physicalCard = new CreditCardViewModel.fromJson(allCards.first);
-    physicalCardInfo = physicalCardInfoJson;
+    vcards = allCards;
   }
 
   @action
   Future loadPhysicalCard() async {
+    var allCards = await Api.loadVCards();
+    vcards = allCards;
+    physicalCard = new CreditCardViewModel.fromJson(allCards.first);
+  }
+
+  @action
+  Future loadPhysicalCardInfo() async {
     var physicalCardInfoJson = await Api.loadPhysicalCard();
     physicalCardInfo = physicalCardInfoJson;
   }
-
-  // @observable
-  // int value = 0;
-
-  // @action
-  // void increment() {
-  //   value++;
-  // }
 }

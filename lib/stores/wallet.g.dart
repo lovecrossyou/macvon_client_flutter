@@ -73,4 +73,12 @@ mixin _$WalletStore on _WalletStore, Store {
   Future loadPhysicalCard() {
     return _$loadPhysicalCardAsyncAction.run(() => super.loadPhysicalCard());
   }
+
+  final _$loadPhysicalCardInfoAsyncAction = AsyncAction('loadPhysicalCardInfo');
+
+  @override
+  Future loadPhysicalCardInfo() {
+    return _$loadPhysicalCardInfoAsyncAction
+        .run(() => super.loadPhysicalCardInfo());
+  }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
-import 'package:macvon_flutter/common/loading.dart';
-import 'package:macvon_flutter/utils/Api.dart';
+import 'package:macvon_flutter/stores/wallet.dart';
+
+final walletStore = WalletStore();
 
 class VirtualCardScene extends StatefulWidget {
   @override
@@ -9,11 +11,10 @@ class VirtualCardScene extends StatefulWidget {
 }
 
 class _VirtualCardSceneState extends State<VirtualCardScene> {
-  List cards;
   @override
   void initState() {
     super.initState();
-    _loadPhysicalCards();
+    _loadVCards();
   }
 
   Widget _renderCard(dynamic physicalCard) {
@@ -22,7 +23,7 @@ class _VirtualCardSceneState extends State<VirtualCardScene> {
     return new CreditCard(data: creditCardViewModel);
   }
 
-  List<Widget> _renderVCardList() {
+  List<Widget> _renderVCardList(List cards) {
     return cards
         .asMap()
         .keys
@@ -37,28 +38,27 @@ class _VirtualCardSceneState extends State<VirtualCardScene> {
   }
 
   List<Widget> _renderPage() {
+    var cards = walletStore.vcards;
     return <Widget>[
       Container(
         height: cards.length * 120.0 + 60,
       ),
-      ..._renderVCardList()
+      ..._renderVCardList(cards)
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    if (cards == null) return Loading();
-    return SingleChildScrollView(
-      child: Stack(
-        children: _renderPage(),
+    return Observer(
+      builder: (_) => SingleChildScrollView(
+        child: Stack(
+          children: _renderPage(),
+        ),
       ),
     );
   }
 
-  void _loadPhysicalCards() async {
-    var vCards = await Api.loadVCards();
-    setState(() {
-      cards = vCards;
-    });
+  void _loadVCards() {
+    walletStore.loadVCards();
   }
 }
