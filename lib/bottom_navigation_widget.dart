@@ -80,7 +80,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   void initState() {
     list..add(Wallet())..add(Transaction())..add(Budget())..add(More());
     super.initState();
-    _eventBus();
+    _subscribeEventBus();
   }
 
   @override
@@ -111,7 +111,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     );
   }
 
-  _eventBus() {
+  _subscribeEventBus() {
     //订阅login event
     _loginSubscription = eventBus.on<LoginEvent>().listen((event) {
       _goLoginPage();

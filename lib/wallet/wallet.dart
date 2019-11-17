@@ -56,11 +56,11 @@ class Wallet extends StatelessWidget {
     );
   }
 
-  _goAddCard(context) {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return AddCard();
-    }));
-  }
+  // _goAddCard(context) {
+  //   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+  //     return AddCard();
+  //   }));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,12 @@ class Wallet extends StatelessWidget {
                     '+ CARD',
                     style: TextStyle(color: Colors.blue),
                   ),
-                  onPressed: _goAddCard(context),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return AddCard();
+                    }));
+                  },
                 ),
               ),
             ],

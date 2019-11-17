@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:macvon_flutter/budget/select_budget.dart';
 
 class AddCard extends StatefulWidget {
   @override
@@ -22,60 +23,67 @@ class _AddCardState extends State<AddCard> {
     }
   }
 
+  _selectBudget(context) {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return SelectBudget();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter data',
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Flutter Form正确使用方法'),
+          title: new Text('ADD CARD'),
         ),
         floatingActionButton: new FloatingActionButton(
           onPressed: _forSubmitted,
           child: new Text('提交'),
         ),
-        body: new Container(
-          padding: const EdgeInsets.all(16.0),
-          child: new Form(
-            key: _formKey,
-            child: new Column(
-              children: <Widget>[
-                new TextFormField(
-                  decoration: new InputDecoration(
-                    labelText: 'Your Name',
-                  ),
-                  onSaved: (val) {
-                    _name = val;
-                  },
+        body: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            new Container(
+              padding: const EdgeInsets.all(16.0),
+              child: new Form(
+                key: _formKey,
+                child: new Column(
+                  children: <Widget>[
+                    new TextFormField(
+                      decoration: new InputDecoration(
+                        labelText: 'Enter card name',
+                      ),
+                      obscureText: true,
+                      validator: (val) {
+                        return val.length < 4
+                            ? "card name less than 4 letter"
+                            : null;
+                      },
+                      onSaved: (val) {
+                        _password = val;
+                      },
+                    ),
+                  ],
                 ),
-                new TextFormField(
-                  decoration: new InputDecoration(
-                    labelText: 'Password',
-                  ),
-                  obscureText: true,
-                  validator: (val) {
-                    return val.length < 4 ? "密码长度错误" : null;
-                  },
-                  onSaved: (val) {
-                    _password = val;
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 28.0),
-                  child: Row(children: <Widget>[
-                    Expanded(
-                        child: RaisedButton(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text('登录'),
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      onPressed: this._forSubmitted,
-                    ))
-                  ]),
-                )
-              ],
+              ),
             ),
-          ),
+            new ListTile(
+              onTap: () {
+                this._selectBudget(context);
+              },
+              leading: FlutterLogo(size: 28.0),
+              title: Text('BUDGET'),
+              trailing: Container(
+                  width: 110,
+                  child: Row(
+                    children: <Widget>[
+                      Text('Selet a budget'),
+                      Icon(Icons.arrow_forward_ios)
+                    ],
+                  )),
+            ),
+          ],
         ),
       ),
     );
