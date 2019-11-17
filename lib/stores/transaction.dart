@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:macvon_flutter/utils/Api.dart';
 import 'package:mobx/mobx.dart';
 
@@ -8,7 +9,7 @@ part 'transaction.g.dart';
 class TransactionStore = _TransactionStore with _$TransactionStore;
 
 // The store-class
-abstract class _TransactionStore with Store {
+abstract class _TransactionStore extends ChangeNotifier with Store {
   @observable
   List txns = [];
 
@@ -18,3 +19,5 @@ abstract class _TransactionStore with Store {
     txns = txnsData;
   }
 }
+
+final TransactionStore txnStore = new TransactionStore();

@@ -38,3 +38,5 @@ abstract class _WalletStore with Store {
     physicalCardInfo = physicalCardInfoJson;
   }
 }
+
+final WalletStore walletStore = new WalletStore();

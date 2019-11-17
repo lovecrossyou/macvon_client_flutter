@@ -7,9 +7,6 @@ import 'package:macvon_flutter/stores/wallet.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
 import 'package:macvon_flutter/wallet/components/card_info_item.dart';
 
-final walletStore = WalletStore();
-final txnStore = TransactionStore();
-
 Widget _renderCardInfo(dynamic cardInfoModel) {
   List<CardInfoModel> list = [
     new CardInfoModel('Card Number', "${cardInfoModel['cardId']}"),

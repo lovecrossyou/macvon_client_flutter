@@ -3,8 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
 import 'package:macvon_flutter/stores/wallet.dart';
 
-final walletStore = WalletStore();
-
 class VirtualCardScene extends StatefulWidget {
   @override
   _VirtualCardSceneState createState() => _VirtualCardSceneState();
