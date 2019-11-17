@@ -8,7 +8,7 @@ class TransactionList extends StatelessWidget {
     return txns
         .map((txn) => Card(
               child: ListTile(
-                leading: FlutterLogo(size: 56.0),
+                leading: FlutterLogo(size: 28.0),
                 title: Text(txn['merchant']),
                 subtitle: Text(txn['txnDate']),
                 trailing: Text(txn['amount']),

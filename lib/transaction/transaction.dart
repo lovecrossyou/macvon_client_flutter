@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/common/indicator.dart';
 import 'package:macvon_flutter/common/loading.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
@@ -20,8 +21,9 @@ class Transaction extends StatefulWidget {
   _TransactionState createState() => _TransactionState();
 }
 
-class _TransactionState extends State<Transaction> {
-  dynamic txns ;
+class _TransactionState extends State<Transaction>
+    with AutomaticKeepAliveClientMixin {
+  dynamic txns;
   @override
   void initState() {
     super.initState();
@@ -54,7 +56,7 @@ class _TransactionState extends State<Transaction> {
   }
 
   Widget _renderBody() {
-    if(txns == null) return Loading();
+    if (txns == null) return Loading();
     return new TabBarView(
       children: <Widget>[
         new TransactionList(txns),
@@ -78,6 +80,7 @@ class _TransactionState extends State<Transaction> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return new DefaultTabController(
         length: _allPages.length,
         child: new Scaffold(
@@ -102,4 +105,7 @@ class _TransactionState extends State<Transaction> {
           ),
         ));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

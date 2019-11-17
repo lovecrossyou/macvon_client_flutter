@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/budget/budget_list.dart';
 import 'package:macvon_flutter/common/indicator.dart';
 import 'package:macvon_flutter/common/loading.dart';
@@ -20,7 +21,7 @@ class Budget extends StatefulWidget {
   _Budget createState() => _Budget();
 }
 
-class _Budget extends State<Budget> {
+class _Budget extends State<Budget> with AutomaticKeepAliveClientMixin{
   dynamic budgets;
   @override
   void initState() {
@@ -78,6 +79,7 @@ class _Budget extends State<Budget> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return new DefaultTabController(
         length: _allPages.length,
         child: new Scaffold(
@@ -102,4 +104,7 @@ class _Budget extends State<Budget> {
           ),
         ));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

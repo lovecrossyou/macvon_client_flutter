@@ -8,7 +8,7 @@ class BudgetList extends StatelessWidget {
     return budgets
         .map((budget) => Card(
               child: ListTile(
-                leading: FlutterLogo(size: 56.0),
+                leading: FlutterLogo(size: 28.0),
                 title: Text(budget['name']),
                 subtitle: Text("${budget['budgetType']}"),
                 trailing: Text("${budget['unassigned']}"),

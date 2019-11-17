@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:macvon_flutter/signin/signin.dart';
 
 String horseUrl = 'https://i.stack.imgur.com/Dw6f7.png';
 String cowUrl = 'https://i.stack.imgur.com/XPOr3.png';
@@ -50,10 +49,7 @@ class MoreBody extends StatelessWidget {
             new Divider(),
             new ListTile(
               onTap: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  return Login();
-                }))
+                Navigator.pushReplacementNamed(context, '/signin')
               },
               title: new Text('Logout',
                   style: new TextStyle(fontWeight: FontWeight.w500)),

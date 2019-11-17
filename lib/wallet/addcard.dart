@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:macvon_flutter/budget/select_budget.dart';
 
 class AddCard extends StatefulWidget {
   @override
@@ -24,9 +23,7 @@ class _AddCardState extends State<AddCard> {
   }
 
   _selectBudget(context) {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return SelectBudget();
-    }));
+    Navigator.pushNamed(context, '/selectbudget');
   }
 
   @override
@@ -75,7 +72,7 @@ class _AddCardState extends State<AddCard> {
               leading: FlutterLogo(size: 28.0),
               title: Text('BUDGET'),
               trailing: Container(
-                  width: 110,
+                  width: 120,
                   child: Row(
                     children: <Widget>[
                       Text('Selet a budget'),

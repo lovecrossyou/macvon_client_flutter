@@ -1,4 +1,3 @@
-import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
 import 'package:macvon_flutter/common/loading.dart';

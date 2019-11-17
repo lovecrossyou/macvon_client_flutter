@@ -8,7 +8,7 @@ class More extends StatefulWidget {
   _MoreState createState() => _MoreState();
 }
 
-class _MoreState extends State<More> {
+class _MoreState extends State<More> with AutomaticKeepAliveClientMixin{
   dynamic userinfo;
 
   @override
@@ -26,7 +26,11 @@ class _MoreState extends State<More> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (userinfo == null) return Loading();
     return MoreBody(userinfo);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

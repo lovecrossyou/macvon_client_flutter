@@ -1,6 +1,4 @@
-import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:macvon_flutter/signin/signin.dart';
 import 'package:macvon_flutter/utils/event_bus.dart';
 import 'package:macvon_flutter/wallet/wallet.dart';
 import 'package:macvon_flutter/transaction/transaction.dart';
@@ -20,6 +18,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   var _loginSubscription;
   int _currentIndex = 0;
   List<Widget> list = List();
+  var _pageController = PageController();
 
   @override
   void dispose() {
@@ -83,11 +82,23 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     _subscribeEventBus();
   }
 
+  void _pageChanged(int index) {
+    print('_pageChanged');
+    setState(() {
+      if (_currentIndex != index) _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     initData();
     return Scaffold(
-      body: list[_currentIndex],
+      body: PageView.builder(
+          physics: NeverScrollableScrollPhysics(), //禁止页面左右滑动切换
+          controller: _pageController,
+          onPageChanged: _pageChanged, //回调函数
+          itemCount: list.length,
+          itemBuilder: (context, index) => list[index]),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           new BottomNavigationBarItem(
@@ -101,9 +112,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         ],
         currentIndex: _currentIndex,
         onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          _pageController.jumpToPage(index);
         },
         iconSize: 30,
         type: BottomNavigationBarType.fixed,
@@ -119,8 +128,6 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   }
 
   _goLoginPage() {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return Login();
-    }));
+    Navigator.of(context).pushReplacementNamed('/signin');
   }
 }

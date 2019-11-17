@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:macvon_flutter/common/macvon_button.dart';
-import 'package:macvon_flutter/main.dart';
 import 'package:macvon_flutter/utils/Api.dart';
 
 class Login extends StatelessWidget {
@@ -55,10 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         Api.doLogin(
             {"username": '$_email', "password": '$_password'},
             () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return MacvonApp();
-                  }))
+                  Navigator.pushReplacementNamed(context, '/')
                 });
       } catch (exception) {
         print('exception $exception');
