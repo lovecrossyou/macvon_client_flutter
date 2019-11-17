@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macvon_flutter/common/indicator.dart';
+import 'package:macvon_flutter/wallet/addcard.dart';
 import 'package:macvon_flutter/wallet/pcardscene.dart';
 import 'package:macvon_flutter/wallet/vcardscene.dart';
 
@@ -55,6 +56,12 @@ class Wallet extends StatelessWidget {
     );
   }
 
+  _goAddCard(context) {
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return AddCard();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
@@ -72,7 +79,7 @@ class Wallet extends StatelessWidget {
                     '+ CARD',
                     style: TextStyle(color: Colors.blue),
                   ),
-                  onPressed: () {},
+                  onPressed: _goAddCard(context),
                 ),
               ),
             ],
