@@ -87,6 +87,7 @@ class HttpManager {
       return resultError(response.data['code']);
     }
     print("通用的GET请求 ${response.toString()}");
+    print("#####################################");
     return response;
   }
 
@@ -111,7 +112,7 @@ class HttpManager {
       return resultError(response.data['code']);
     }
     print("通用的POST请求 ${response.toString()}");
-
+    print("#####################################");
     return response;
   }
 }
