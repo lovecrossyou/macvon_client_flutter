@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:macvon_flutter/common/loading.dart';
 
 class TransactionList extends StatelessWidget {
   final List txns;
@@ -22,7 +23,7 @@ class TransactionList extends StatelessWidget {
     return ListView(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      children: _renderList(),
+      children: txns== null ? Loading() : _renderList(),
     );
   }
 }

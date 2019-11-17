@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/indicator.dart';
 import 'package:macvon_flutter/common/loading.dart';
+import 'package:macvon_flutter/stores/transaction.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
 import 'package:macvon_flutter/utils/Api.dart';
+
+final transactionStore = TransactionStore();
 
 class HeaderItemBean {
   final String labelTitle;
@@ -23,18 +27,10 @@ class Transaction extends StatefulWidget {
 
 class _TransactionState extends State<Transaction>
     with AutomaticKeepAliveClientMixin {
-  dynamic txns;
   @override
   void initState() {
     super.initState();
-    _loadTxns();
-  }
-
-  _loadTxns() async {
-    var txnsData = await Api.loadTxn();
-    setState(() {
-      txns = txnsData;
-    });
+    transactionStore.loadTxn();
   }
 
   Widget _renderTabs() {
@@ -56,12 +52,12 @@ class _TransactionState extends State<Transaction>
   }
 
   Widget _renderBody() {
-    if (txns == null) return Loading();
-    return new TabBarView(
+    return Observer(
+      builder: (_) => TabBarView(
       children: <Widget>[
-        new TransactionList(txns),
-        new TransactionList(txns),
-      ],
+        new TransactionList(transactionStore.txns),
+        new TransactionList(transactionStore.txns),
+      ]),
     );
   }
 

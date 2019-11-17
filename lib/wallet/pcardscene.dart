@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
-import 'package:macvon_flutter/common/loading.dart';
+import 'package:macvon_flutter/stores/transaction.dart';
+import 'package:macvon_flutter/stores/wallet.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
-import 'package:macvon_flutter/utils/Api.dart';
 import 'package:macvon_flutter/wallet/components/card_info_item.dart';
+
+final walletStore = WalletStore();
+final txnStore = TransactionStore();
 
 Widget _renderCardInfo(dynamic cardInfoModel) {
   List<CardInfoModel> list = [
@@ -66,17 +70,15 @@ class PhysicalCardScene extends StatefulWidget {
 }
 
 class _PhysicalCardSceneState extends State<PhysicalCardScene> {
-  List cards ;
-  CreditCardViewModel physicalCard;
-  dynamic physicalCardInfo;
-  List txns = [];
   @override
   void initState() {
     super.initState();
-    _loadPhysicalCards();
+    walletStore.loadPhysicalCard();
+    walletStore.loadVCards();
+    txnStore.loadTxn();
   }
 
-  List<Widget> _renderPage() {
+  List<Widget> _renderPage(physicalCard, physicalCardInfo, txns) {
     return <Widget>[
       new CreditCard(data: physicalCard),
       new CardInfo(physicalCardInfo),
@@ -86,23 +88,12 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
 
   @override
   Widget build(BuildContext context) {
-    if(cards == null)return Loading();
-    return new ListView(
-      shrinkWrap: true,
-      children: _renderPage(),
+    return Observer(
+      builder: (_) => ListView(
+        shrinkWrap: true,
+        children: _renderPage(walletStore.physicalCard,
+            walletStore.physicalCardInfo, txnStore.txns),
+      ),
     );
-  }
-
-  void _loadPhysicalCards() async {
-    var allCards = await Api.loadVCards();
-    var physicalCardInfoJson = await Api.loadPhysicalCard();
-    var txnsData = await Api.loadTxn();
-
-    setState(() {
-      cards = allCards;
-      physicalCard = new CreditCardViewModel.fromJson(allCards.first);
-      physicalCardInfo = physicalCardInfoJson;
-      txns = txnsData;
-    });
   }
 }
