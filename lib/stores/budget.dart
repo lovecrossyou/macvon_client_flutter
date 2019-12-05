@@ -10,7 +10,6 @@ class Budget = _Budget with _$Budget;
 abstract class _Budget with Store {
   @observable
   int value = 0;
-
   @action
   void increment() {
     value++;

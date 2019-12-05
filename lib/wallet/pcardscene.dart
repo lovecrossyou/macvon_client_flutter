@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
+import 'package:macvon_flutter/common/loading.dart';
 import 'package:macvon_flutter/stores/transaction.dart';
 import 'package:macvon_flutter/stores/wallet.dart';
 import 'package:macvon_flutter/transaction/transactionlist.dart';
@@ -72,14 +73,14 @@ class _PhysicalCardSceneState extends State<PhysicalCardScene> {
     super.initState();
     walletStore.loadPhysicalCardInfo();
     walletStore.loadPhysicalCard();
-    txnStore.loadTxn();
   }
 
   List<Widget> _renderPage(physicalCard, physicalCardInfo, txns) {
+    if (physicalCard == null) return <Widget>[Loading()];
+    if (physicalCardInfo == null) return <Widget>[Loading()];
     return <Widget>[
       new CreditCard(data: physicalCard),
       new CardInfo(physicalCardInfo),
-      new TransactionList(txns)
     ];
   }
 
