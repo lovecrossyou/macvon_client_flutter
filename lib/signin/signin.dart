@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
   Align buildLoginButton(BuildContext context) {
     return Align(
       child: GradientButton(
-        child: Text('LOG IN'),
+        child: Text('SIGN IN'),
         onTap: _verifyAndLogin,
       ),
     );
