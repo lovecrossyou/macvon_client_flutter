@@ -29,7 +29,7 @@ class MacnovApp extends StatelessWidget {
         '/owner': (BuildContext context) => owner.BottomNavigationWidget(),
         '/owner/newcard': (BuildContext context) => owner.AddCard(),
         '/owner/selectbudget': (BuildContext context) => owner.SelectBudget(),
-        '/': (BuildContext context) => employee.BottomNavigationWidget(),
+        '/employee': (BuildContext context) => employee.BottomNavigationWidget(),
         '/employee/newcard': (BuildContext context) => employee.AddCard(),
         '/employee/selectbudget': (BuildContext context) =>
             employee.SelectBudget(),

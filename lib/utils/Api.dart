@@ -101,4 +101,13 @@ class Api {
         .get(preFix + Address.getMyActiveMemberBudgets, queryParameters);
     return budgetResponse.data;
   }
+
+  //
+  static Future<dynamic> getAvatar() async {
+    var preFix = await getPrefix();
+    Map<String, dynamic> queryParameters = new Map<String, dynamic>();
+    Response<dynamic> response = await HttpManager.getInstance()
+        .get(preFix + Address.getAvatar, queryParameters);
+    return response.data;
+  }
 }

@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
         if (isOwner) {
           Navigator.pushReplacementNamed(context, '/owner');
         } else {
-          Navigator.pushReplacementNamed(context, '/');
+          Navigator.pushReplacementNamed(context, '/employee');
         }
       } catch (exception) {
         print('exception $exception');

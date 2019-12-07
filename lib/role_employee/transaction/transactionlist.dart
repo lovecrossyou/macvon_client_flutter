@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:macvon_flutter/common/loading.dart';
+import 'package:macvon_flutter/utils/dateutil.dart';
 
 class TransactionList extends StatelessWidget {
   final List txns;
@@ -19,7 +20,7 @@ class TransactionList extends StatelessWidget {
               child: ListTile(
                 // leading: FlutterLogo(size: 28.0),
                 title: Text(txn['merchant']),
-                subtitle: Text(txn['txnDate'],style: TextStyle(fontSize: 12),),
+                subtitle: Text(DateUtil.ddmmyyyyFormat(txn['txnDate']),style: TextStyle(fontSize: 12),),
                 trailing: this._renderAmount(txn),
               ),
             ))

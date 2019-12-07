@@ -30,7 +30,8 @@ dependencies:
   event_bus: ^1.1.0
   mobx: ^0.3.8
   flutter_mobx: ^0.3.3
-  provider: ^3.1.0+1
+  date_format: ^1.0.8
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -49,6 +50,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/pics/bank_zs.png
+    - assets/pics/bank_zs11.png
+    - assets/pics/card_blank_bg.jpeg
     - assets/tab_icon/tab_icon_budgets_d.png
     - assets/tab_icon/tab_icon_budgets_s.png
     - assets/tab_icon/tab_icon_more_d.png

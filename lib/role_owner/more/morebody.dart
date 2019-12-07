@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:macvon_flutter/stores/signin.dart';
 
 String horseUrl = 'https://i.stack.imgur.com/Dw6f7.png';
 String cowUrl = 'https://i.stack.imgur.com/XPOr3.png';
@@ -10,24 +12,32 @@ class MoreBody extends StatelessWidget {
   final dynamic userinfo;
   MoreBody(this.userinfo);
 
+  Widget _rendetAvatar() {
+    var avatarInfo = signInStore.avatarInfo;
+    if (avatarInfo == null) return Image.asset('assets/pics/bank_zs11.png');
+    return Image.network(avatarInfo['value']);
+  }
+
   Widget _renderHeader() {
-    return ListTile(
-      leading: Container(
-        child: Image.asset('assets/pics/bank_zs.png'),
+    return Observer(
+      builder: (_) => ListTile(
+        leading: Container(
+          child: this._rendetAvatar(),
+        ),
+        title: Text(
+          '${userinfo['firstName']} ${userinfo['lastName']}',
+          style: TextStyle(
+              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        subtitle: Text(
+          '${userinfo['email']}',
+          style: TextStyle(color: Colors.black38),
+        ),
+        trailing: Icon(Icons.edit),
+        onTap: () {},
+        selected: true,
+        contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
       ),
-      title: Text(
-        '${userinfo['firstName']} ${userinfo['lastName']}',
-        style: TextStyle(
-            fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
-      ),
-      subtitle: Text(
-        '${userinfo['email']}',
-        style: TextStyle(color: Colors.black38),
-      ),
-      trailing: Icon(Icons.edit),
-      onTap: () {},
-      selected: true,
-      contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
     );
   }
 
@@ -48,9 +58,7 @@ class MoreBody extends StatelessWidget {
             ),
             new Divider(),
             new ListTile(
-              onTap: () => {
-                Navigator.pushReplacementNamed(context, '/signin')
-              },
+              onTap: () => {Navigator.pushReplacementNamed(context, '/signin')},
               title: new Text('Logout',
                   style: new TextStyle(fontWeight: FontWeight.w500)),
               leading: Image.asset(

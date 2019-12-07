@@ -18,4 +18,7 @@ class Address {
   // user
 
   static String OWNER_USER_SETTING = '/getUserSetting';
+
+
+  static String getAvatar = '/getAvatar';
 }

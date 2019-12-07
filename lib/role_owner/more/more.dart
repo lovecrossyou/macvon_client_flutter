@@ -8,13 +8,18 @@ class More extends StatefulWidget {
   _MoreState createState() => _MoreState();
 }
 
-class _MoreState extends State<More> with AutomaticKeepAliveClientMixin{
+class _MoreState extends State<More> with AutomaticKeepAliveClientMixin {
   dynamic userinfo;
 
   @override
   void initState() {
     super.initState();
     _loadUserSetting();
+    _loadAvatar();
+  }
+
+  _loadAvatar() async {
+    await Api.getAvatar();
   }
 
   _loadUserSetting() async {

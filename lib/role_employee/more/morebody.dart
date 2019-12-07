@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:macvon_flutter/stores/signin.dart';
 
 String horseUrl = 'https://i.stack.imgur.com/Dw6f7.png';
 String cowUrl = 'https://i.stack.imgur.com/XPOr3.png';
@@ -10,10 +11,16 @@ class MoreBody extends StatelessWidget {
   final dynamic userinfo;
   MoreBody(this.userinfo);
 
+  Widget _rendetAvatar() {
+    var avatarInfo = signInStore.avatarInfo;
+    if (avatarInfo == null) return Image.asset('assets/pics/bank_zs.png');
+    return Image.network(signInStore.avatarInfo['value']);
+  }
+
   Widget _renderHeader() {
     return ListTile(
       leading: Container(
-        child: Image.asset('assets/pics/bank_zs.png'),
+        child: this._rendetAvatar(),
       ),
       title: Text(
         '${userinfo['firstName']} ${userinfo['lastName']}',
@@ -48,9 +55,7 @@ class MoreBody extends StatelessWidget {
             ),
             new Divider(),
             new ListTile(
-              onTap: () => {
-                Navigator.pushReplacementNamed(context, '/signin')
-              },
+              onTap: () => {Navigator.pushReplacementNamed(context, '/signin')},
               title: new Text('Logout',
                   style: new TextStyle(fontWeight: FontWeight.w500)),
               leading: Image.asset(

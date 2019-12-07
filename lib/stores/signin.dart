@@ -1,3 +1,4 @@
+import 'package:macvon_flutter/utils/Api.dart';
 import 'package:mobx/mobx.dart';
 
 // Include generated file
@@ -9,10 +10,17 @@ class Signin = _Signin with _$Signin;
 // The store-class
 abstract class _Signin with Store {
   @observable
-  String apiRolePrefix = '';
+  dynamic avatarInfo;
+
   @action
-  void setApiPrefix(prefix) {
-    apiRolePrefix = prefix;
+  void setAvatar(data) {
+    avatarInfo = data;
+  }
+
+  @action
+  Future getAvatar() async {
+    var avatarInfoJson = await Api.getAvatar();
+    avatarInfo = avatarInfoJson;
   }
 }
 

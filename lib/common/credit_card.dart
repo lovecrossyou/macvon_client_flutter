@@ -12,19 +12,10 @@ class CreditCard extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
       padding: EdgeInsets.only(left: 20, top: 20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: this.data.cardColors,
-        ),
+        image: DecorationImage(
+            image: AssetImage('assets/pics/card_blank_bg.jpeg'),
+            fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 6,
-            spreadRadius: 4,
-            color: Color.fromARGB(20, 0, 0, 0),
-          ),
-        ],
       ),
       child: Stack(
         children: <Widget>[
@@ -155,14 +146,14 @@ class CreditCardViewModel {
   )   : nickName = json['nickName'],
         cardOwner = json['cardOwner'],
         vendor = json['vendor'],
-        budget = json['budget']?? '',
+        budget = json['budget'] ?? '',
         lastChargedOn = json['lastChargedOn'],
         type = json['type'],
         cardId = json['cardId'],
-        budgetId = json['budgetId']?? '',
+        budgetId = json['budgetId'] ?? '',
         status = json['status'],
-        budgetType = json['budgetType']?? '',
-        bankLogoUrl = 'assets/pics/bank_zs.png',
-        cardColors =[Color(0xFFF17B68), Color(0xFFE95F66)],
+        budgetType = json['budgetType'] ?? '',
+        bankLogoUrl = 'assets/pics/bank_zs11.png',
+        cardColors = [Color(0xFFF17B68), Color(0xFFE95F66)],
         validDate = 'CVV 10/27';
 }
