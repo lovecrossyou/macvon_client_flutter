@@ -3,10 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/credit_card.dart';
 import 'package:macvon_flutter/common/loading.dart';
+import 'package:macvon_flutter/role_owner/wallet/components/card_info_item.dart';
 import 'package:macvon_flutter/stores/transaction.dart';
 import 'package:macvon_flutter/stores/wallet.dart';
-import 'package:macvon_flutter/transaction/transactionlist.dart';
-import 'package:macvon_flutter/wallet/components/card_info_item.dart';
 
 Widget _renderCardInfo(dynamic cardInfoModel) {
   List<CardInfoModel> list = [

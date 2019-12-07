@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:macvon_flutter/utils/event_bus.dart';
-import 'package:macvon_flutter/wallet/wallet.dart';
-import 'package:macvon_flutter/transaction/transaction.dart';
-import 'package:macvon_flutter/more/more.dart';
-import 'package:macvon_flutter/budget/budget.dart';
+import 'package:macvon_flutter/role_owner/wallet/wallet.dart';
+import 'package:macvon_flutter/role_owner/transaction/transaction.dart';
+import 'package:macvon_flutter/role_owner/more/more.dart';
+import 'package:macvon_flutter/role_owner/budget/budget.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   BottomNavigationWidget({Key key}) : super(key: key);

@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/indicator.dart';
 import 'package:macvon_flutter/common/loading.dart';
-import 'package:macvon_flutter/stores/transaction.dart';
-import 'package:macvon_flutter/transaction/transactionlist.dart';
+import 'package:macvon_flutter/role_employee/budget/budget_list.dart';
 import 'package:macvon_flutter/utils/Api.dart';
-
-final transactionStore = TransactionStore();
 
 class HeaderItemBean {
   final String labelTitle;
@@ -16,21 +12,28 @@ class HeaderItemBean {
 }
 
 final List<HeaderItemBean> _allPages = <HeaderItemBean>[
-  new HeaderItemBean("your transactions"),
-  new HeaderItemBean("all transactions"),
+  new HeaderItemBean("your budgets"),
+  new HeaderItemBean("all budgets"),
 ];
 
-class Transaction extends StatefulWidget {
+class Budget extends StatefulWidget {
   @override
-  _TransactionState createState() => _TransactionState();
+  _Budget createState() => _Budget();
 }
 
-class _TransactionState extends State<Transaction>
-    with AutomaticKeepAliveClientMixin {
+class _Budget extends State<Budget> with AutomaticKeepAliveClientMixin{
+  dynamic budgets;
   @override
   void initState() {
     super.initState();
-    transactionStore.loadTxn();
+    _loadBudgets();
+  }
+
+  _loadBudgets() async {
+    var budgetsData = await Api.getMyActiveMemberBudgets();
+    setState(() {
+      budgets = budgetsData;
+    });
   }
 
   Widget _renderTabs() {
@@ -52,12 +55,12 @@ class _TransactionState extends State<Transaction>
   }
 
   Widget _renderBody() {
-    return Observer(
-      builder: (_) => TabBarView(
+    if (budgets == null) return Loading();
+    return new TabBarView(
       children: <Widget>[
-        new TransactionList(transactionStore.txns),
-        new TransactionList(transactionStore.txns),
-      ]),
+        new BudgetList(budgets),
+        new BudgetList(budgets),
+      ],
     );
   }
 
@@ -66,7 +69,7 @@ class _TransactionState extends State<Transaction>
       children: <Widget>[
         Expanded(
           child: Text(
-            'Transaction',
+            'Budgets',
             style: TextStyle(color: Colors.blue),
           ),
         ),

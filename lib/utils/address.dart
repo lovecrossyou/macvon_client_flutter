@@ -4,18 +4,18 @@ class Address {
   static String LOGIN = "login";
 
 //  wallet
-  static String OWNER_LOAD_ALL_CARDS = 'owner/loadAllCards';
-  static String OWNER_PHYSICAL_CARD = 'owner/getPhysicalCard';
-  static String OWNER_GET_CARD_INFO = 'owner/getCardInfo';
-  static String OWNER_LOAD_VCARDS = 'owner/loadVirtualCard';
+  static String OWNER_LOAD_ALL_CARDS = '/loadAllCards';
+  static String OWNER_PHYSICAL_CARD = '/getPhysicalCard';
+  static String OWNER_GET_CARD_INFO = '/getCardInfo';
+  static String OWNER_LOAD_VCARDS = '/loadVirtualCard';
 
 //  txn
-  static String OWNER_PENGING_CLEAR_TXN = 'owner/pendingAndClearedTransactions';
+  static String OWNER_PENGING_CLEAR_TXN = '/pendingAndClearedTransactions';
 
   // budget
-  static String OWNER_ACTIVE_BUDGETS = 'owner/getCompanyActiveBudgets';
-
+  static String OWNER_ACTIVE_BUDGETS = '/getCompanyActiveBudgets';
+  static String getMyActiveMemberBudgets = '/getMyActiveMemberBudgets';
   // user
 
-  static String OWNER_USER_SETTING = 'owner/getUserSetting';
+  static String OWNER_USER_SETTING = '/getUserSetting';
 }

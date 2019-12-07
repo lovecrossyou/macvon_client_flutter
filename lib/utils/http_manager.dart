@@ -47,6 +47,7 @@ class HttpManager {
       return future.then((value) {
         options.headers["authorization"] = value;
         options.headers["Content-Type"] = 'application/json';
+        
         return options;
       }).whenComplete(() => _dio.unlock()); // unlock the dio
     }, onResponse: (Response response) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:macvon_flutter/wallet/components/card_info_item.dart';
+import 'package:macvon_flutter/role_owner/wallet/components/card_info_item.dart';
 
 Widget _renderCardInfo() {
   List<CardInfoModel> list = [

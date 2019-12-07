@@ -19,7 +19,7 @@ class BudgetList extends StatelessWidget {
               child: ListTile(
                 // leading: FlutterLogo(size: 28.0),
                 title: Text(budget['name'],style: TextStyle(fontSize: 18),),
-                subtitle: Text("${budget['budgetType']}",style: TextStyle(fontSize: 12),),
+                subtitle: Text("${budget['budgetType'].toString().toUpperCase()}",style: TextStyle(fontSize: 12),),
                 trailing: this._renderAmount(budget),
               ),
             ))

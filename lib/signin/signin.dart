@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email = 'owner@americansunion.com', _password = 'Password_123';
+  String _email = 'employee@americansunion.com', _password = 'Password_123';
   bool _isObscure = true;
   Color _eyeColor;
 
@@ -51,11 +51,13 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       try {
-        Api.doLogin(
-            {"username": '$_email', "password": '$_password'},
-            () => {
-                  Navigator.pushReplacementNamed(context, '/')
-                });
+        var isOwner = await Api.doLogin(
+            {"username": '$_email', "password": '$_password'});
+        if (isOwner) {
+          Navigator.pushReplacementNamed(context, '/owner');
+        } else {
+          Navigator.pushReplacementNamed(context, '/');
+        }
       } catch (exception) {
         print('exception $exception');
       }
@@ -119,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
 
   TextFormField buildEmailTextField() {
     return TextFormField(
-      initialValue: 'owner@americansunion.com',
+      initialValue: 'employee@americansunion.com',
       decoration: InputDecoration(
         labelText: 'Emall Address',
       ),

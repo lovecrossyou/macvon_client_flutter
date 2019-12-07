@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:macvon_flutter/common/indicator.dart';
-import 'package:macvon_flutter/wallet/pcardscene.dart';
-import 'package:macvon_flutter/wallet/vcardscene.dart';
+import 'package:macvon_flutter/common/loading.dart';
+import 'package:macvon_flutter/role_owner/budget/budget_list.dart';
+import 'package:macvon_flutter/utils/Api.dart';
 
 class HeaderItemBean {
   final String labelTitle;
@@ -10,16 +12,30 @@ class HeaderItemBean {
 }
 
 final List<HeaderItemBean> _allPages = <HeaderItemBean>[
-  new HeaderItemBean("physical card"),
-  new HeaderItemBean("virtual card"),
+  new HeaderItemBean("your budgets"),
+  new HeaderItemBean("all budgets"),
 ];
 
-class Wallet extends StatefulWidget {
+class Budget extends StatefulWidget {
   @override
-  _WalletState createState() => _WalletState();
+  _Budget createState() => _Budget();
 }
 
-class _WalletState extends State<Wallet> with AutomaticKeepAliveClientMixin {
+class _Budget extends State<Budget> with AutomaticKeepAliveClientMixin{
+  dynamic budgets;
+  @override
+  void initState() {
+    super.initState();
+    _loadBudgets();
+  }
+
+  _loadBudgets() async {
+    var budgetsData = await Api.getCompanyActiveBudgets();
+    setState(() {
+      budgets = budgetsData;
+    });
+  }
+
   Widget _renderTabs() {
     return Material(
       color: Colors.white,
@@ -39,10 +55,11 @@ class _WalletState extends State<Wallet> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _renderBody() {
+    if (budgets == null) return Loading();
     return new TabBarView(
       children: <Widget>[
-        new PhysicalCardScene(),
-        new VirtualCardScene(),
+        new BudgetList(budgets),
+        new BudgetList(budgets),
       ],
     );
   }
@@ -52,7 +69,7 @@ class _WalletState extends State<Wallet> with AutomaticKeepAliveClientMixin {
       children: <Widget>[
         Expanded(
           child: Text(
-            'Wallet',
+            'Budgets',
             style: TextStyle(color: Colors.blue),
           ),
         ),
@@ -70,20 +87,6 @@ class _WalletState extends State<Wallet> with AutomaticKeepAliveClientMixin {
             brightness: Brightness.light,
             backgroundColor: Colors.white,
             elevation: 0,
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: new FlatButton(
-                  child: new Text(
-                    '+ CARD',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/newcard");
-                  },
-                ),
-              ),
-            ],
             title: _renderHeader(),
           ),
           body: Column(

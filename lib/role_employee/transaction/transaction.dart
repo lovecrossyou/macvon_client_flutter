@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:macvon_flutter/budget/budget_list.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:macvon_flutter/common/indicator.dart';
-import 'package:macvon_flutter/common/loading.dart';
-import 'package:macvon_flutter/utils/Api.dart';
+import 'package:macvon_flutter/role_employee/transaction/transactionlist.dart';
+import 'package:macvon_flutter/stores/transaction.dart';
+
+final transactionStore = TransactionStore();
 
 class HeaderItemBean {
   final String labelTitle;
@@ -12,28 +14,21 @@ class HeaderItemBean {
 }
 
 final List<HeaderItemBean> _allPages = <HeaderItemBean>[
-  new HeaderItemBean("your budgets"),
-  new HeaderItemBean("all budgets"),
+  new HeaderItemBean("your transactions"),
+  new HeaderItemBean("all transactions"),
 ];
 
-class Budget extends StatefulWidget {
+class Transaction extends StatefulWidget {
   @override
-  _Budget createState() => _Budget();
+  _TransactionState createState() => _TransactionState();
 }
 
-class _Budget extends State<Budget> with AutomaticKeepAliveClientMixin{
-  dynamic budgets;
+class _TransactionState extends State<Transaction>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    _loadBudgets();
-  }
-
-  _loadBudgets() async {
-    var budgetsData = await Api.getCompanyActiveBudgets();
-    setState(() {
-      budgets = budgetsData;
-    });
+    transactionStore.loadTxn();
   }
 
   Widget _renderTabs() {
@@ -55,12 +50,12 @@ class _Budget extends State<Budget> with AutomaticKeepAliveClientMixin{
   }
 
   Widget _renderBody() {
-    if (budgets == null) return Loading();
-    return new TabBarView(
+    return Observer(
+      builder: (_) => TabBarView(
       children: <Widget>[
-        new BudgetList(budgets),
-        new BudgetList(budgets),
-      ],
+        new TransactionList(transactionStore.txns),
+        new TransactionList(transactionStore.txns),
+      ]),
     );
   }
 
@@ -69,7 +64,7 @@ class _Budget extends State<Budget> with AutomaticKeepAliveClientMixin{
       children: <Widget>[
         Expanded(
           child: Text(
-            'Budgets',
+            'Transaction',
             style: TextStyle(color: Colors.blue),
           ),
         ),
